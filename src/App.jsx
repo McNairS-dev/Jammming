@@ -33,6 +33,9 @@ function App() {
       artist: 'Elizabeth Frazer',
       album:  "Sun's Signature" 
     }
+    ],
+    playlistIds: [
+      "d003", "e004", "f005"
   ]
 }
 const SEARCH_DATA = 
@@ -59,10 +62,9 @@ const SEARCH_DATA =
 
 const [playlistName, setPlaylistName] = useState(PLAYLIST_DATA.playlistName);
 const [playlistDescription, setPlaylistDescription] = useState(PLAYLIST_DATA.playlistDescription);
-//const [playlistTracks, setPlaylistTracks] = useState();
-const [playlistTracks, setPlaylistTracks] = useState(PLAYLIST_DATA.trackData);
+const [playlistTracks, setPlaylistTracks] = useState(PLAYLIST_DATA.trackData); // should be initialise as an array?
 const [searchResultsTracks, setSearchResultsTracks] = useState(SEARCH_DATA);
-//console.log(searchResultsTracks);
+const [playlistIds, setPlaylistIds] = useState([PLAYLIST_DATA.playlistIds]);
 
 function updatePlaylist(playlistName, playlistDescription) {
   PLAYLIST_DATA.playlistName = playlistName;
@@ -73,6 +75,7 @@ function addRemoveTrack (id, buttonType) {
   if (buttonType === '+') {
     const trackToAdd = searchResultsTracks.find((track) => track.id === id);
     setPlaylistTracks([...playlistTracks, trackToAdd]);
+    setPlaylistIds([...playlistIds, trackToAdd.id]);
   
     const remainingTracks = searchResultsTracks.filter((trackToRemove) => id !== trackToRemove.id);
     setSearchResultsTracks(remainingTracks);
@@ -81,9 +84,14 @@ function addRemoveTrack (id, buttonType) {
   if (buttonType === '-') {
     const trackToAdd = playlistTracks.find((track) => track.id === id);
     setSearchResultsTracks([...searchResultsTracks, trackToAdd]);
-  
+
     const remainingTracks = playlistTracks.filter((trackToRemove) => id !== trackToRemove.id);
     setPlaylistTracks(remainingTracks);
+
+    const remainingIds = remainingTracks.map(track => track.id);
+    setPlaylistIds(remainingIds);
+    
+    
   } else {
       alert('Sorry, Bud. No can do');
   }
