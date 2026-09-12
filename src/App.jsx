@@ -34,7 +34,6 @@ function App() {
       album:  "Sun's Signature" 
     }
     ],
-        // add array of trackIds, managed by setTrackIds?
     playlistIds: [
       "d003", "e004", "f005"
   ]
@@ -63,10 +62,8 @@ const SEARCH_DATA =
 
 const [playlistName, setPlaylistName] = useState(PLAYLIST_DATA.playlistName);
 const [playlistDescription, setPlaylistDescription] = useState(PLAYLIST_DATA.playlistDescription);
-//const [playlistTracks, setPlaylistTracks] = useState();
 const [playlistTracks, setPlaylistTracks] = useState(PLAYLIST_DATA.trackData); // should be initialise as an array?
 const [searchResultsTracks, setSearchResultsTracks] = useState(SEARCH_DATA);
-// initiate playlistIds with useState([]) // should be initialise as an array?
 const [playlistIds, setPlaylistIds] = useState([PLAYLIST_DATA.playlistIds]);
 
 function updatePlaylist(playlistName, playlistDescription) {
@@ -74,7 +71,6 @@ function updatePlaylist(playlistName, playlistDescription) {
   PLAYLIST_DATA.playlistDescription = playlistDescription;
 }
 
-// addRemoveTrack should be updating an array of trackIds with setTrackIds?
 function addRemoveTrack (id, buttonType) {
   if (buttonType === '+') {
     const trackToAdd = searchResultsTracks.find((track) => track.id === id);
